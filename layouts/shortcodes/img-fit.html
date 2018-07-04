@@ -38,7 +38,7 @@
             /path/to/img: can pass in the explicit path to the image
 -->
 {{ $numOfParams := sub (len .Params) 1 }}
-{{ if and (ge $numOfParams 3) (not (modBool $numOfParams 2)) }}
+{{ if ge $numOfParams 3 }}
     {{ $.Scratch.Set "path" (.Get $numOfParams) }}
 
     {{ $.Scratch.Set "structType" "shortcode" }}
@@ -62,8 +62,10 @@
                 {{ end }}
             {{ else }}
                 {{ if ne ($.Scratch.Get "imgFile") "" }}
-                        <img src='{{ $path }}/{{ $.Scratch.Get "imgFile" }}'
-                            alt="{{ . }}">
+						<a href='{{ $path }}/{{ $.Scratch.Get "imgFile" }}'>
+						<img src='{{ $path }}/{{ $.Scratch.Get "imgFile" }}'
+                            alt="{{ . }}"/>
+						</a>
                     </span></div>
                 {{ end }}
                 {{ $.Scratch.Set "count" 0 }}
